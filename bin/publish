@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+echo "Pushing to github"
+git tag $VERSION
+git push origin $VERSION
+
+echo "Building $VERSION"
+gem build ec2spot.gemspec
+gem push "ec2spot-$VERSION.gem"
