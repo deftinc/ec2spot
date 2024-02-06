@@ -3,10 +3,12 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-echo "Pushing to github"
+VERSION=$(cat VERSION | xargs)
+
+echo "Pushing to github $VERSION"
 git tag $VERSION
 git push origin $VERSION
 
-echo "Building $VERSION"
+echo "Pushing to rubygems $VERSION"
 gem build ec2spot.gemspec
 gem push "ec2spot-$VERSION.gem"
